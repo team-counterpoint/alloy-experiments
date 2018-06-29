@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<alloy>
+
+<view>
+
+<projection> <type name="ctl/TS"/> </projection>
+
+<defaultnode/>
+
+<defaultedge visible="no"/>
+
+<node>
+   <type name="CF"/>
+   <type name="CW"/>
+   <type name="Feature"/>
+   <type name="Int"/>
+   <type name="PhoneNumber"/>
+   <type name="String"/>
+   <type name="boolean/Bool"/>
+   <type name="boolean/False"/>
+   <type name="boolean/True"/>
+   <type name="ctl/TS"/>
+   <type name="seq/Int"/>
+</node>
+
+<node color="Red">
+   <set name="S0" type="State"/>
+</node>
+
+<node visible="no">
+   <type name="univ"/>
+</node>
+
+<node visible="yes">
+   <type name="State"/>
+</node>
+
+<node visible="yes" color="Blue">
+   <type name="Path"/>
+</node>
+
+<edge visible="yes">
+   <relation name="sigma"> <type name="State"/> <type name="State"/> </relation>
+   <relation name="sigma"> <type name="ctl/TS"/> <type name="State"/> <type name="State"/> </relation>
+</edge>
+
+</view>
+
+</alloy>
