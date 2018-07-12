@@ -13,7 +13,6 @@
    <type name="CF"/>
    <type name="CW"/>
    <type name="Feature"/>
-   <type name="Int"/>
    <type name="PhoneNumber"/>
    <type name="String"/>
    <type name="boolean/Bool"/>
@@ -32,16 +31,15 @@
 </node>
 
 <node visible="yes">
+   <type name="Int"/>
+   <type name="Path"/>
    <type name="State"/>
 </node>
 
-<node visible="yes" color="Blue">
-   <type name="Path"/>
-</node>
-
 <edge visible="yes">
+   <relation name="next"> <type name="Path"/> <type name="Path"/> </relation>
    <relation name="sigma"> <type name="State"/> <type name="State"/> </relation>
-   <relation name="sigma"> <type name="ctl/TS"/> <type name="State"/> <type name="State"/> </relation>
+   <relation name="state"> <type name="Path"/> <type name="State"/> </relation>
 </edge>
 
 </view>

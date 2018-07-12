@@ -51,7 +51,7 @@ sig Path {
 }
 fact {
 	// Successive states in path are connected by transitions.
-	all p:Path | p.next.state in TS.sigma.(p.state)
+	all p:Path | p.next.state in (p.state).(TS.sigma)
 	// There is an end of the path.
 	one p:Path | no p.next
 	// There is a beginning of the path.
