@@ -42,28 +42,6 @@ sig State{
 	forwardedTo: PhoneNumber -> PhoneNumber
 }
 
-//*****************COUNTEREXAMPLE PATH********************//
-
-
-sig Path {
-	next: lone Path,
-	state: one State
-}
-fact {
-	// Successive states in path are connected by transitions.
-	all p:Path | p.next.state in (p.state).(TS.sigma)
-	// There is an end of the path.
-	one p:Path | no p.next
-	// There is a beginning of the path.
-	one p:Path | p not in Path.next
-	// The beginning of the path is in S0.
-	all p:Path | p not in Path.next implies p.state in TS.S0
-	// There is only one predecessor.
-	all p:Path | lone p.~next
-    // There are no loops.
-	all p:Path | p not in p.^next
-}
-
 //*****************INITIAL STATE CONSTRAINTS********************//
 
 pred initial[s:State]{
@@ -316,12 +294,49 @@ pred significanceAxioms {
 	operationsAxiom
 }
 // increment scope until scope satisfies all preds including Sig. Axioms
---run significanceAxioms for exactly 6 State, exactly 4 PhoneNumber
+run significanceAxioms for exactly 6 State, exactly 4 PhoneNumber
 
 //*****************PROPERTIES/CHECK********************//
 pred safety [s:State] {
 	// no PN is both being waited for and being forwarded to
-	some s.waitingFor.PhoneNumber & s.forwardedTo.PhoneNumber
+	no s.waitingFor.PhoneNumber & s.forwardedTo.PhoneNumber
 }
+
 assert MC { ctl_mc[ag[{s:State | safety[s]}]] }
-check MC for exactly 6 State, exactly 4 PhoneNumber, exactly 3 Path
+check MC for exactly 6 State, exactly 4 PhoneNumber
+
+//*****************COUNTEREXAMPLE PATH********************//
+
+pred test [s:State] {
+	#s.idle > 1
+}
+
+assert test_MC { ctl_mc[ag[{s:State | test[s]}]] }
+check test_MC for exactly 6 State, exactly 4 PhoneNumber
+
+/*
+sig Path {
+	next: lone Path,
+	state: one State
+}
+fact {
+	// Successive states in path are connected by transitions.
+	all p:Path | p.next.state in (p.state).(TS.sigma)
+	// There is an end of the path.
+	one p:Path | no p.next
+	// There is a beginning of the path.
+	one p:Path | p not in Path.next
+	// The beginning of the path is in S0.
+	all p:Path | p not in Path.next implies p.state in TS.S0
+	// There is only one predecessor.
+	all p:Path | lone p.~next
+    // There are no loops.
+	all p:Path | p not in p.^next
+}
+
+sig PathState in State {}
+fact {
+	all s : PathState | some p : Path | s in p.state
+}
+*/
+
