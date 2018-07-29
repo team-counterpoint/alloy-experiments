@@ -308,20 +308,49 @@ check MC for exactly 6 State, exactly 4 PhoneNumber
 //*****************COUNTEREXAMPLE PATH********************//
 
 pred test [s:State] {
+	// This safety property is wrong. We should get a counterexample.
 	#s.idle > 1
 }
 
 assert test_MC { ctl_mc[ag[{s:State | test[s]}]] }
-check test_MC for exactly 6 State, exactly 4 PhoneNumber
+check test_MC for exactly 6 State, exactly 4 PhoneNumber, 6 Path
+
+/*
+sig Path {
+	fromState: disj one State,
+	toState: disj one State
+}
+
+fun pathState: State {
+	Path.fromState + Path.toState
+}
+
+fun pathSigma: State -> State {
+	~fromState.toState
+}
+
+fact {
+	// Successive states in path are connected by transitions.
+	//all p:Path | p.toState in TS.sigma[p.fromState]
+	pathSigma in TS.sigma
+	// There is an end of the path.
+	one s:Path.toState | s not in Path.fromState
+	// There is a beginning of the path.
+	one s:Path.fromState | s not in Path.toState
+	// The beginning of the path is in S0.
+	all s:Path.fromState | s not in Path.toState implies s in TS.S0
+}
+*/
 
 /*
 sig Path {
 	next: lone Path,
 	state: one State
 }
+
 fact {
 	// Successive states in path are connected by transitions.
-	all p:Path | p.next.state in (p.state).(TS.sigma)
+	all p:Path | p.next.state in TS.sigma[p.state]
 	// There is an end of the path.
 	one p:Path | no p.next
 	// There is a beginning of the path.
@@ -333,10 +362,11 @@ fact {
     // There are no loops.
 	all p:Path | p not in p.^next
 }
+*/
 
-sig PathState in State {}
-fact {
-	all s : PathState | some p : Path | s in p.state
+/*
+fun inPath[]: State {
+	{s:State | s in Path.state}
 }
 */
 
