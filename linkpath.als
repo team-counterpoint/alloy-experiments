@@ -32,6 +32,23 @@ fact {
 	all p:Path | p not in p.^next
 }
 
+// Counterexample for AX(phi), i.e. witness for EX(!phi). Finite.
+pred path_ax[phi:State] {
+	#Path = 2
+	Path.next.state not in phi
+}
+
+// Counterexample for AG(phi), i.e. witness for EF(!phi). Finite.
 pred path_ag[phi:State] {
 	all p:Path | last[p] => p.state not in phi
 }
+
+// Counterexample for AF(phi), i.e. witness for EG(!phi). Infite.
+pred path_af[phi:State] {
+}
+
+// Counterexample for A(phi U si), i.e. witness for E(phi W si). (In)finite.
+pred path_au[phi:State] {
+}
+
+

@@ -28,13 +28,21 @@ fact {
 	all p:Path | p.from not in p.from.^pathSigma
 }
 
-pred path_ag[phi:State] {
-	all p:Path | last[p] => p.to not in phi
-}
-
+// Counterexample for AX(phi), i.e. witness for EX(!phi). Finite.
 pred path_ax[phi:State] {
 	#Path = 1
 	Path.to not in phi
 }
 
+// Counterexample for AG(phi), i.e. witness for EF(!phi). Finite.
+pred path_ag[phi:State] {
+	all p:Path | last[p] => p.to not in phi
+}
 
+// Counterexample for AF(phi), i.e. witness for EG(!phi). Infite.
+pred path_af[phi:State] {
+}
+
+// Counterexample for A(phi U si), i.e. witness for E(phi W si). (In)finite.
+pred path_au[phi:State] {
+}
