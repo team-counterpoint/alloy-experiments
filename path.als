@@ -3,6 +3,7 @@
  */
 
 open ctl[State]
+open subpath[State]
 open util/boolean
 
 //***********************STATE SPACE*************************//
@@ -313,60 +314,11 @@ pred test [s:State] {
 }
 
 assert test_MC { ctl_mc[ag[{s:State | test[s]}]] }
-check test_MC for exactly 6 State, exactly 4 PhoneNumber, 6 Path
+//fact { path_ag[{s:State | test[s]}] }
+//fun pathState: State { linkpath/pathState }
+//fun pathSigma: State->State { subpath/pathSigma }
+//fun first: Path { {p:Path | p not in Path.next} }
+//fun last: Path { {p:Path | no p.next} }
+check test_MC for exactly 6 State, exactly 4 PhoneNumber, exactly 3 Path
 
-/*
-sig Path {
-	fromState: disj one State,
-	toState: disj one State
-}
-
-fun pathState: State {
-	Path.fromState + Path.toState
-}
-
-fun pathSigma: State -> State {
-	~fromState.toState
-}
-
-fact {
-	// Successive states in path are connected by transitions.
-	//all p:Path | p.toState in TS.sigma[p.fromState]
-	pathSigma in TS.sigma
-	// There is an end of the path.
-	one s:Path.toState | s not in Path.fromState
-	// There is a beginning of the path.
-	one s:Path.fromState | s not in Path.toState
-	// The beginning of the path is in S0.
-	all s:Path.fromState | s not in Path.toState implies s in TS.S0
-}
-*/
-
-/*
-sig Path {
-	next: lone Path,
-	state: one State
-}
-
-fact {
-	// Successive states in path are connected by transitions.
-	all p:Path | p.next.state in TS.sigma[p.state]
-	// There is an end of the path.
-	one p:Path | no p.next
-	// There is a beginning of the path.
-	one p:Path | p not in Path.next
-	// The beginning of the path is in S0.
-	all p:Path | p not in Path.next implies p.state in TS.S0
-	// There is only one predecessor.
-	all p:Path | lone p.~next
-    // There are no loops.
-	all p:Path | p not in p.^next
-}
-*/
-
-/*
-fun inPath[]: State {
-	{s:State | s in Path.state}
-}
-*/
 
