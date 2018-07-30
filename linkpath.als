@@ -20,6 +20,7 @@ fun pathSigma: State -> State { ~state.next.state }
 
 private pred finite { some p:Path | no p.next }
 private fun last: Path { {p:Path | no p.next} }
+private fun loop: Path { {p:Path | p in p.^next} }
 
 fact {
 	// Successive states in path are connected by transitions.
@@ -42,10 +43,22 @@ pred path_ag[phi:State] {
 	last.state not in phi
 }
 
-// Counterexample for AF(phi), i.e. witness for EG(!phi). Infite.
+// Counterexample for AF(phi), i.e. witness for EG(!phi). Infinite.
 pred path_af[phi:State] {
 	not finite
 	no Path.state & phi
+}
+
+// Counterexample for AFAG(phi), i.e. witness for EGEF(!phi). Infinite.
+pred path_af_ag[phi:State] {
+	not finite
+	loop not in phi
+}
+
+// Counterexample for AGAF(phi), i.e. witness for EFEG(!phi). Infinite.
+pred path_ag_af[phi:State] {
+	not finite
+	no loop & phi
 }
 
 // Counterexample for A(phi U si), i.e. witness for E(phi W !si). (In)finite.
