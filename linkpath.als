@@ -61,6 +61,17 @@ pred path_ag_af[phi:State] {
 	no loop & phi
 }
 
+// Counterexample for AG(phi & AF(si)), i.e. witness for EF(!phi | EG(si)). (In)finite.
+pred path_ag_and_af[phi:State, si:State] {
+	finite => last.state not in phi else loop in si
+}
+
+// Counterexample for AF(phi & AF(si)), i.e. witness for EG(!phi | EF(si)). Infinite.
+pred path_af_and_ag[phi:State, si:State] {
+	not finite
+	(no Path.state & phi) or (some loop & phi)
+}
+
 // Counterexample for A(phi U si), i.e. witness for E(phi W !si). (In)finite.
 pred path_au[phi:State, si:State] {
 	finite => last.state in (State - si - phi) else Path.state in phi
