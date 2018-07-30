@@ -3,7 +3,7 @@
  */
 
 open ctl[State]
-open subpath[State]
+open linkpath[State]
 open util/boolean
 
 //***********************STATE SPACE*************************//
@@ -313,12 +313,20 @@ pred test [s:State] {
 	#s.idle > 1
 }
 
-assert test_MC { ctl_mc[ag[{s:State | test[s]}]] }
+pred test2 [s:State] {
+	// This liveness property is wrong. We should get an infinite counterexample.
+	#s.idle > 10
+}
+
+//assert test_MC { ctl_mc[ag[{s:State | test[s]}]] }
 //fact { path_ag[{s:State | test[s]}] }
 //fun pathState: State { linkpath/pathState }
 //fun pathSigma: State->State { subpath/pathSigma }
-//fun first: Path { {p:Path | p not in Path.next} }
-//fun last: Path { {p:Path | no p.next} }
-check test_MC for exactly 6 State, exactly 4 PhoneNumber, exactly 3 Path
+//check test_MC for exactly 6 State, exactly 4 PhoneNumber, 6 Path
 
+assert test_MC2 { ctl_mc[af[{s:State | test2[s]}]] }
+fact { path_af[{s:State | test2[s]}] }
+fun pathState: State { linkpath/pathState }
+fun pathSigma: State -> State { linkpath/pathSigma }
+check test_MC2 for exactly 6 State, exactly 4 PhoneNumber, 6 Path
 
