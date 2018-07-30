@@ -26,9 +26,6 @@ fact {
 	pathSigma in TS.sigma
 	// It includes an initial state.
 	P0.state in TS.S0
-	// There is at most one starting point.
-	lone p:P0 | p not in Path.next
-	no p:(Path-P0) | p not in Path.next
 	// The path is connected.
 	P0.*next = Path
 }
