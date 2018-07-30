@@ -4,6 +4,8 @@ module linkpath[State]
 
 open ctl[State]
 
+// ********** Path definition **********
+
 // Linked list path structure.
 sig Path {
 	next: lone Path,
@@ -31,6 +33,8 @@ fact {
 	P0.*next = Path
 }
 
+// ********** Non-nested properties **********
+
 // Counterexample for AX(phi), i.e. witness for EX(!phi). Finite.
 pred path_ax[phi:State] {
 	#Path = 2
@@ -48,6 +52,22 @@ pred path_af[phi:State] {
 	not finite
 	no Path.state & phi
 }
+
+
+// Counterexample for A(phi U si), i.e. witness for E(phi W !si). (In)finite.
+pred path_au[phi:State, si:State] {
+	finite => (Path.state - last.state) in phi and last.state in (State - phi - si)
+	else Path.state in phi
+}
+
+// Counterexample for A(phi W si), i.e. witness for E(phi U !si). Finite.
+pred path_au[phi:State, si:State] {
+	finite
+	(Path.state - last.state) in phi
+	last.state in (State - phi - si)
+}
+
+// ********** Specific nested properties **********
 
 // Counterexample for AFAG(phi), i.e. witness for EGEF(!phi). Infinite.
 pred path_af_ag[phi:State] {
@@ -72,8 +92,16 @@ pred path_af_and_ag[phi:State, si:State] {
 	(no Path.state & phi) or (some loop & phi)
 }
 
-// Counterexample for A(phi U si), i.e. witness for E(phi W !si). (In)finite.
-pred path_au[phi:State, si:State] {
-	finite => last.state in (State - si - phi) else Path.state in phi
+// Counterexample for AG(phi => AX(si)), i.e. witness for EF(phi & !EX(si)). Finite.
+pred path_ag_implies_ax[phi:State, si:State] {
+	finite
+	last.~next.state in phi
+	last.state not in si
 }
 
+// Counterexample for AF(phi => AX(si)), i.e. witness for EG(phi & !EX(si)). Infinite.
+pred path_ag_implies_ax[phi:State, si:State] {
+	not finite
+	Path.state in phi
+	no Path.next.state & si
+}
