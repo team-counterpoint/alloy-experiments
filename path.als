@@ -1,332 +1,131 @@
-/* Authors: Sabria Farheen, Nancy A. Day, Amirhossein Vakili, Ali Abbassi
- * Date: October 1, 2017
- */
+// Team Counterpoint
+
+module path[State]
 
 open ctl[State]
-open linkpath[State]
-open util/boolean
 
-//***********************STATE SPACE*************************//
+// ********** Path definition **********
 
-// Feature={CW,CF} is the set of features.
-abstract sig Feature{}
-one sig CW,CF extends Feature{}
-
-// Each phone number can have some features. 
-//If a number has call-forwarding (CF), fw points to forwarded number.
-sig PhoneNumber{ 
-	feature: set Feature, 
-	fw: set PhoneNumber, 
-} 
-fact { // facts about types (PhoneNumber)
-	// any PN can only have 0 or 1 PN as its fw number
-	all n:PhoneNumber| lone n.fw
-	// CF is a feature of PN only if the PN has a fw number set
-	all n:PhoneNumber| CF in n.feature iff some n.fw
-	// no number is forwarded to itself thru other numbers	
-	no (iden & (^fw))  
+// Linked list path structure.
+sig Path {
+	next: lone Path,
+	state: disj one State
 }
 
-// Used to model the global states.
-sig State{
-	// Numbers that are idle,
-	idle: set PhoneNumber,
-	// (a->b) in busy iff a wants to talk to b, but b is not idle
-	busy: PhoneNumber -> PhoneNumber,
-	// (a->b) in calling iff a is trying to call b
-	calling: PhoneNumber -> PhoneNumber,
-	// (a->b) in talking iff a is talking to b
-	talkingTo: PhoneNumber -> PhoneNumber,
-	// (a->b) in waitingFor iff a is waiting for b
-	waitingFor: PhoneNumber -> PhoneNumber,
-	// (a->b) in forwardedTo iff a is forwarded to b
-	forwardedTo: PhoneNumber -> PhoneNumber
+// The first node in the path.
+one sig P0 in Path {}
+
+// States that are part of the path.
+fun pathState: State { Path.state }
+// A subset of sigma for the path.
+fun pathSigma: State -> State { ~state.next.state }
+
+private pred finite { some p:Path | no p.next }
+private fun last: Path { {p:Path | no p.next} }
+private fun loop: Path { {p:Path | p in p.^next} }
+
+fact {
+	// Successive states in path are connected by transitions.
+	pathSigma in TS.sigma
+	// It includes an initial state.
+	P0.state in TS.S0
+	// The path is connected.
+	P0.*next = Path
 }
 
-//*****************INITIAL STATE CONSTRAINTS********************//
+// ********** Non-nested properties **********
 
-pred initial[s:State]{
-	s.idle = PhoneNumber
-	no s.calling
-	no s.talkingTo
-	no s.busy
-	no s.waitingFor
-	no s.forwardedTo
+// Counterexample for AX(phi), i.e. witness for EX(!phi). Finite.
+pred path_ax[phi:State] {
+	#Path = 2
+	last.state not in phi
 }
 
-//*****************TRANSITION CONSTRAINTS/OPERATIONS********************//
-
-pred pre_idle_calling[s: State,n,n':PhoneNumber]{
-	n in s.idle
-	n != n'	
+// Counterexample for AG(phi), i.e. witness for EF(!phi). Finite.
+pred path_ag[phi:State] {
+	finite
+	last.state not in phi
 }
-pred post_idle_calling[s,s': State,n,n':PhoneNumber]{
-	s'.idle = ((s.idle) - n)
-	s'.calling = s.calling + (n->n')	
 
-	s'.talkingTo = s.talkingTo
-	s'.busy = s.busy
-	s'.waitingFor = s.waitingFor
-	s'.forwardedTo = s.forwardedTo
-}
-pred idle_calling[s,s': State,n,n':PhoneNumber]{
-	pre_idle_calling[s,n,n']	
-	post_idle_calling[s,s',n,n']
+// Counterexample for AF(phi), i.e. witness for EG(!phi). Infinite.
+pred path_af[phi:State] {
+	not finite
+	no Path.state & phi
 }
 
 
-pred pre_calling_talkingTo[s:State,n,n':PhoneNumber]{
-	n->n' in s.calling
-	n' in s.idle
-}
-pred post_calling_talkingTo[s,s':State,n,n':PhoneNumber]{
-	s'.idle = s.idle - n'
-	s'.calling = s.calling - (n -> n')
-	s'.talkingTo = s.talkingTo + (n -> n')
-
-	s'.busy = s.busy
-	s'.waitingFor = s.waitingFor
-	s'.forwardedTo = s.forwardedTo
-}
-pred calling_talkingTo[s,s':State,n,n':PhoneNumber]{
-	pre_calling_talkingTo[s,n,n']
-	post_calling_talkingTo[s,s',n,n']
+// Counterexample for A(phi U si), i.e. witness for E(phi W !si). (In)finite.
+pred path_au[phi:State, si:State] {
+	finite => (Path.state - last.state) in phi and last.state in (State - phi - si)
+	else Path.state in phi
 }
 
-pred pre_talkingTo_idle[s:State,n,n':PhoneNumber]{
-	n -> n' in s.talkingTo
-}
-pred post_talkingTo_idle[s,s':State,n,n':PhoneNumber]{
-	s'.talkingTo = s.talkingTo - (n->n')
-	s'.idle = s.idle + (n + n')
-
-	s'.busy = s.busy
-	s'.calling = s.calling
-	s'.waitingFor = s.waitingFor
-	s'.forwardedTo = s.forwardedTo
-}
-pred talkingTo_idle[s,s':State,n,n':PhoneNumber]{
-	pre_talkingTo_idle[s,n,n']
-	post_talkingTo_idle[s,s',n,n']
+// Counterexample for A(phi W si), i.e. witness for E(phi U !si). Finite.
+pred path_au[phi:State, si:State] {
+	finite
+	(Path.state - last.state) in phi
+	last.state in (State - phi - si)
 }
 
-pred pre_calling_busy[s:State,n,n':PhoneNumber]{
-	n->n' in s.calling
-	n' not in s.idle
-}
-pred post_calling_busy[s,s':State,n,n':PhoneNumber]{
-	s'.calling = s.calling - (n->n')
-	s'.busy = s.busy + (n->n')
-	
-	s'.idle = s.idle
-	s'.talkingTo = s.talkingTo
-	s'.waitingFor = s.waitingFor
-	s'.forwardedTo = s.forwardedTo
-}
-pred calling_busy[s,s':State,n,n':PhoneNumber]{
-	pre_calling_busy[s,n,n']
-	post_calling_busy[s,s',n,n']
+// ********** Specific nested properties **********
+
+// Counterexample for AFAG(phi), i.e. witness for EGEF(!phi). Infinite.
+pred path_af_ag[phi:State] {
+	not finite
+	loop.state not in phi
 }
 
-pred pre_busy_waitingFor[s:State,n,n':PhoneNumber]{
-	(n->n') in s.busy
-	CW in n'.feature
-	// PN is not already being waited for, i.e.,
-	// can have only one call in CW queue, otherwise stay busy
-	n' not in PhoneNumber.(s.waitingFor)
-}
-pred post_busy_waitingFor[s,s':State,n,n':PhoneNumber]{
-	s'.busy = s.busy - (n->n')
-	s'.waitingFor = s.waitingFor + (n->n')
-
-	s'.forwardedTo = s.forwardedTo	
-	s'.idle = s.idle
-	s'.calling = s.calling
-	s'.talkingTo = s.talkingTo
-}
-pred busy_waitingFor[s,s':State,n,n':PhoneNumber]{
-	pre_busy_waitingFor[s,n,n']
-	post_busy_waitingFor[s,s',n,n']
+// Counterexample for AGAF(phi), i.e. witness for EFEG(!phi). Infinite.
+pred path_ag_af[phi:State] {
+	not finite
+	no loop.state & phi
 }
 
-// caller on CW hangs up
-pred pre_waitingFor_idle[s:State,n,n':PhoneNumber]{
-	n -> n' in s.waitingFor
-}
-pred post_waitingFor_idle[s,s':State,n,n':PhoneNumber]{	
-	s'.waitingFor = s.waitingFor - (n -> n')	
-	s'.idle = s.idle + n
-
-	s'.calling = s.calling
-	s'.talkingTo = s.talkingTo
-	s'.busy = s.busy
-	s'.forwardedTo = s.forwardedTo
-}
-pred waitingFor_idle[s,s':State,n,n':PhoneNumber]{
-	pre_waitingFor_idle[s,n,n']
-	post_waitingFor_idle[s,s',n,n']
+// Counterexample for AG(phi & AF(si)), i.e. witness for EF(!phi | EG(si)). (In)finite.
+pred path_ag_and_af[phi:State, si:State] {
+	finite => last.state not in phi else loop.state in si
 }
 
-pred pre_waitingFor_talkingTo[s:State,n,n':PhoneNumber]{
-	n -> n' in s.waitingFor
-}
-pred post_waitingFor_talkingTo[s,s':State,n,n':PhoneNumber]{
-	s'.waitingFor = s.waitingFor - (n -> n')
-	s'.talkingTo = s.talkingTo + (n -> n')
-
-	s'.idle = s.idle 
-	s.busy = s'.busy
-	s.forwardedTo = s'.forwardedTo
-	s.calling = s'.calling
-}
-pred waitingFor_talkingTo[s,s':State,n,n':PhoneNumber]{
-	pre_waitingFor_talkingTo[s,n,n']
-	post_waitingFor_talkingTo[s,s',n,n']
+// Counterexample for AF(phi & AF(si)), i.e. witness for EG(!phi | EF(si)). Infinite.
+pred path_af_and_ag[phi:State, si:State] {
+	not finite
+	(no Path.state & phi) or (some loop.state & phi)
 }
 
-pred pre_busy_forwardedTo[s:State,n,n':PhoneNumber]{
-	n -> n' in s.busy
-	CF in n'.feature
-}
-pred post_busy_forwardedTo[s,s':State,n,n':PhoneNumber]{
-	s'.busy = s.busy - (n -> n')
-	s'.forwardedTo = s.forwardedTo + (n -> n'.fw)
-
-	s'.idle = s.idle
-	s'.talkingTo = s.talkingTo
-	s'.calling = s.calling 
-	s'.waitingFor = s.waitingFor
-}
-pred busy_forwardedTo[s,s':State,n,n':PhoneNumber]{
-	pre_busy_forwardedTo[s,n,n']
-	post_busy_forwardedTo[s,s',n,n']
+// Counterexample for AG(phi => AX(si)), i.e. witness for EF(phi & !EX(si)). Finite.
+pred path_ag_implies_ax[phi:State, si:State] {
+	finite
+	last.~next.state in phi
+	last.state not in si
 }
 
-pred pre_forwardedTo_calling[s:State,n,n':PhoneNumber]{
-	n -> n' in s.forwardedTo
-}
-pred post_forwardedTo_calling[s,s':State,n,n':PhoneNumber]{
-	s'.forwardedTo = s.forwardedTo - (n->n')
-	s'.calling = s.calling + (n -> n')
-
-	s'.idle = s.idle
-	s'.busy = s.busy
-	s'.talkingTo = s.talkingTo
-	s'.waitingFor = s.waitingFor
-}
-pred forwardedTo_calling[s,s':State,n,n':PhoneNumber]{
-	pre_forwardedTo_calling[s,n,n']
-	post_forwardedTo_calling[s,s',n,n']
+// Counterexample for AF(phi => AX(si)), i.e. witness for EG(phi & !EX(si)). Infinite.
+pred path_ag_implies_ax[phi:State, si:State] {
+	not finite
+	Path.state in phi
+	no Path.next.state & si
 }
 
-pred pre_busy_idle[s:State,n,n':PhoneNumber]{
-	n -> n' in s.busy
-	no n'.feature
-}
-pred post_busy_idle[s,s':State,n,n':PhoneNumber]{
-	s'.busy = s.busy - (n -> n')
-	s'.idle = s.idle + n
+// ********** Generalized X **********
 
-	s.talkingTo = s'.talkingTo
-	s.waitingFor = s'.waitingFor
-	s.forwardedTo = s'.forwardedTo
-	s.calling = s'.calling
-}
-pred busy_idle[s,s':State,n,n':PhoneNumber]{
-	pre_busy_idle[s,n,n']
-	post_busy_idle[s,s',n,n']
-}
+// issues: internal loops legitimate for EX
+// how to decide finiteness
+// can make both optional (specify manually)
+// -> only issue is with displaying intenral loops  / showing trace
+// -> still unambiguous with superstructure
+// -> but pathSigma incorrect? state adjacent depends on where you are in path
 
+fun p_ex[phi:State]: State { pathSigma.phi }
 
-//*****************MODEL DEFINITION********************//
+fun p_ef[phi:State]: State { (*pathSigma).phi }
 
-fact md{
-	// init state constraint
-	all s:State | s in initialState iff initial[s]	
-	// transition constraints
-	all s,s': State| 
-		((s->s') in nextState) iff
-		(some n,n':PhoneNumber|(
-			idle_calling[s,s',n,n'] or calling_talkingTo[s,s',n,n'] or talkingTo_idle[s,s',n,n'] or
-			calling_busy[s,s',n,n'] or busy_waitingFor[s,s',n,n'] or busy_forwardedTo[s,s',n,n'] or
-			busy_idle[s,s',n,n'] or waitingFor_idle[s,s',n,n'] or waitingFor_talkingTo[s,s',n,n'] or
-			forwardedTo_calling[s,s',n,n']))
-	// equality predicate: states are records
-	all s,s':State|(
-		((s.idle = s'.idle) and (s.calling = s'.calling) and 
-		(s.talkingTo = s'.talkingTo) and (s.busy = s'.busy) and
-		(s.waitingFor = s'.waitingFor) and (s.forwardedTo = s'.forwardedTo)) implies (s =s'))
+fun p_eg[phi:State]: State { {s:pathState | s.*pathSigma in phi} }
+
+fun p_eu[phi:State, si:State]: State {
+	*(phi <: pathSigma).(si & (State - phi))
 }
 
-//*****************SIGNIFICANCE AXIOMS********************//
-pred initialStateAxiom {
-	some s: State | s in initialState
-}
-pred totalityAxiom {
-	all s: State | some s':State | s->s' in nextState
-}
-pred operationsAxiom {
-	// at least one state must satisfy precons of each op
-	some s:State | some n,n':PhoneNumber | pre_idle_calling[s,n,n']
-	some s:State | some n,n':PhoneNumber | pre_calling_talkingTo[s,n,n']
-	some s:State | some n,n':PhoneNumber | pre_talkingTo_idle[s,n,n']
-	some s:State | some n,n':PhoneNumber | pre_calling_busy[s,n,n']
-	some s:State | some n,n':PhoneNumber | pre_busy_waitingFor[s,n,n']
-	some s:State | some n,n':PhoneNumber | pre_busy_forwardedTo[s,n,n']
-	some s:State | some n,n':PhoneNumber | pre_busy_idle[s,n,n']
-	some s:State | some n,n':PhoneNumber | pre_waitingFor_idle[s,n,n']
-	some s:State | some n,n':PhoneNumber | pre_waitingFor_talkingTo[s,n,n']
-	some s:State | some n,n':PhoneNumber | pre_forwardedTo_calling[s,n,n']
-	// all possible ops from state must exist
-	all s:State | some n,n':PhoneNumber | pre_idle_calling[s,n,n'] implies some s':State | post_idle_calling[s,s',n,n']
-	all s:State | some n,n':PhoneNumber | pre_calling_talkingTo[s,n,n'] implies some s':State | post_calling_talkingTo[s,s',n,n']
-	all s:State | some n,n':PhoneNumber | pre_talkingTo_idle[s,n,n'] implies some s':State | post_talkingTo_idle[s,s',n,n']
-	all s:State | some n,n':PhoneNumber | pre_calling_busy[s,n,n'] implies some s':State | post_calling_busy[s,s',n,n']
-	all s:State | some n,n':PhoneNumber | pre_busy_waitingFor[s,n,n'] implies some s':State | post_busy_waitingFor[s,s',n,n']
-	all s:State | some n,n':PhoneNumber | pre_busy_forwardedTo[s,n,n'] implies some s':State | post_busy_forwardedTo[s,s',n,n']
-	all s:State | some n,n':PhoneNumber | pre_busy_idle[s,n,n'] implies some s':State | post_busy_idle[s,s',n,n']
-	all s:State | some n,n':PhoneNumber | pre_waitingFor_idle[s,n,n'] implies some s':State | post_waitingFor_idle[s,s',n,n']
-	all s:State | some n,n':PhoneNumber | pre_waitingFor_talkingTo[s,n,n'] implies some s':State | post_waitingFor_talkingTo[s,s',n,n']
-	all s:State | some n,n':PhoneNumber | pre_forwardedTo_calling[s,n,n'] implies some s':State | post_forwardedTo_calling[s,s',n,n']
-}
-pred significanceAxioms {
-	initialStateAxiom
-	totalityAxiom
-	operationsAxiom
-}
-// increment scope until scope satisfies all preds including Sig. Axioms
-run significanceAxioms for exactly 6 State, exactly 4 PhoneNumber
+pred p_finite[phi: State] { finite and P0.state in phi }
+pred p_infinite[phi: State] { not finite and P0.state in phi }
 
-//*****************PROPERTIES/CHECK********************//
-pred safety [s:State] {
-	// no PN is both being waited for and being forwarded to
-	no s.waitingFor.PhoneNumber & s.forwardedTo.PhoneNumber
-}
-
-assert MC { ctl_mc[ag[{s:State | safety[s]}]] }
-check MC for exactly 6 State, exactly 4 PhoneNumber
-
-//*****************COUNTEREXAMPLE PATH********************//
-
-pred test [s:State] {
-	// This safety property is wrong. We should get a counterexample.
-	#s.idle > 1
-}
-
-pred test2 [s:State] {
-	// This liveness property is wrong. We should get an infinite counterexample.
-	#s.idle > 10
-}
-
-//assert test_MC { ctl_mc[ag[{s:State | test[s]}]] }
-//fact { path_ag[{s:State | test[s]}] }
-//fun pathState: State { linkpath/pathState }
-//fun pathSigma: State->State { subpath/pathSigma }
-//check test_MC for exactly 6 State, exactly 4 PhoneNumber, 6 Path
-
-assert test_MC2 { ctl_mc[af[{s:State | test2[s]}]] }
-fact { path_af[{s:State | test2[s]}] }
-fun pathState: State { linkpath/pathState }
-fun pathSigma: State -> State { linkpath/pathSigma }
-check test_MC2 for exactly 6 State, exactly 4 PhoneNumber, 6 Path
 

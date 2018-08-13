@@ -4,12 +4,18 @@ module subpath[State]
 
 open ctl[State]
 
+// Reified State->State relation.
 sig Path {
 	from: disj one State,
-	to: disj one State
+	to: one State
 }
 
+// The first link in the path.
+one sig P0 in Path {}
+
+// States that are part of the path.
 fun pathState: State { Path.from + Path.to }
+// A subset of sigma for the path.
 fun pathSigma: State -> State { ~from.to }
 
 private pred first[p:Path] { p.from not in Path.to }
