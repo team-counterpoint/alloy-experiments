@@ -1,0 +1,128 @@
+<?xml version="1.0"?>
+<alloy>
+
+<view nodetheme="Martha">
+
+<projection> <type name="steps/ctl/TS"/> </projection>
+
+<defaultnode/>
+
+<defaultedge/>
+
+<node>
+   <type name="Int"/>
+   <type name="Snapshot"/>
+   <type name="String"/>
+   <type name="System"/>
+   <type name="System_Replica1_NotRunning"/>
+   <type name="System_Replica1_Running"/>
+   <type name="System_Replica1_Start"/>
+   <type name="System_Replica1_Stop"/>
+   <type name="System_Replica1_t1"/>
+   <type name="System_Replica1_t2"/>
+   <type name="System_Replica1_t3"/>
+   <type name="System_Replica2_NotRunning"/>
+   <type name="System_Replica2_Running"/>
+   <type name="System_Replica2_Start"/>
+   <type name="System_Replica2_Stop"/>
+   <type name="System_Replica2_t1"/>
+   <type name="System_Replica2_t2"/>
+   <type name="System_Replica2_t3"/>
+   <type name="System_Update"/>
+   <type name="SystemState"/>
+   <type name="seq/Int"/>
+   <type name="steps/EventLabel"/>
+   <type name="steps/StateLabel"/>
+   <type name="steps/boolean/False"/>
+   <type name="steps/boolean/True"/>
+</node>
+
+<node color="Red">
+   <set name="S0" type="steps/BaseSnapshot"/>
+</node>
+
+<node label="">
+   <set name="$operationsAxiom_s" type="steps/BaseSnapshot"/>
+   <set name="$operationsAxiom_s&apos;" type="steps/BaseSnapshot"/>
+   <set name="$operationsAxiom_s&apos;&apos;" type="steps/BaseSnapshot"/>
+   <set name="$operationsAxiom_s&apos;&apos;&apos;" type="steps/BaseSnapshot"/>
+   <set name="$operationsAxiom_s&apos;&apos;&apos;&apos;" type="steps/BaseSnapshot"/>
+   <set name="$operationsAxiom_s&apos;&apos;&apos;&apos;&apos;" type="steps/BaseSnapshot"/>
+   <set name="$operationsAxiom_s&apos;&apos;&apos;&apos;&apos;&apos;" type="steps/BaseSnapshot"/>
+   <set name="$operationsAxiom_s&apos;&apos;&apos;&apos;&apos;&apos;&apos;" type="steps/BaseSnapshot"/>
+   <set name="$operationsAxiom_s&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;" type="steps/BaseSnapshot"/>
+   <set name="$operationsAxiom_s&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;" type="steps/BaseSnapshot"/>
+   <set name="$operationsAxiom_s&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;" type="steps/BaseSnapshot"/>
+   <set name="$operationsAxiom_s&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;" type="steps/BaseSnapshot"/>
+   <set name="$operationsAxiom_s&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;" type="steps/BaseSnapshot"/>
+   <set name="$operationsAxiom_s&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;" type="steps/BaseSnapshot"/>
+   <set name="$operationsAxiom_s&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;" type="steps/BaseSnapshot"/>
+   <set name="$operationsAxiom_s&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;" type="steps/BaseSnapshot"/>
+   <set name="$operationsAxiom_s&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;" type="steps/BaseSnapshot"/>
+   <set name="$operationsAxiom_s&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;" type="steps/BaseSnapshot"/>
+   <set name="$operationsAxiom_s&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;" type="steps/BaseSnapshot"/>
+   <set name="$operationsAxiom_s&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;" type="steps/BaseSnapshot"/>
+   <set name="$operationsAxiom_s&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;" type="steps/BaseSnapshot"/>
+   <set name="$operationsAxiom_s&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;" type="steps/BaseSnapshot"/>
+   <set name="$operationsAxiom_s&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;" type="steps/BaseSnapshot"/>
+   <set name="$operationsAxiom_s&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;" type="steps/BaseSnapshot"/>
+</node>
+
+<node shape="Box" color="Blue" label="TS">
+   <type name="steps/ctl/TS"/>
+</node>
+
+<node shape="Ellipse" color="Yellow">
+   <type name="NodeId"/>
+</node>
+
+<node style="Bold" label="Replica1">
+   <set name="$default_System_Replica1" type="System_Replica1"/>
+</node>
+
+<node style="Bold" label="Replica2">
+   <set name="$default_System_Replica2" type="System_Replica2"/>
+</node>
+
+<node style="Bold" label="State">
+   <set name="$default_State" type="steps/StateLabel"/>
+</node>
+
+<node style="Bold" label="System">
+   <set name="$default_System" type="steps/StateLabel"/>
+</node>
+
+<node visible="no">
+   <type name="System_Replica1"/>
+   <type name="System_Replica2"/>
+   <type name="univ"/>
+   <type name="nodes/Ord"/>
+   <type name="steps/EnvironmentEvent"/>
+   <type name="steps/InternalEvent"/>
+   <type name="steps/TransitionLabel"/>
+   <type name="steps/boolean/Bool"/>
+</node>
+
+<node visible="no" shape="Parallelogram" color="Green" label="Step">
+   <type name="steps/Step"/>
+</node>
+
+<node visible="yes">
+   <type name="steps/BaseSnapshot"/>
+</node>
+
+<edge attribute="yes">
+   <relation name="conf"> <type name="steps/BaseSnapshot"/> <type name="steps/StateLabel"/> </relation>
+   <relation name="events"> <type name="steps/BaseSnapshot"/> <type name="steps/EventLabel"/> </relation>
+   <relation name="System_children"> <type name="steps/BaseSnapshot"/> <type name="NodeId"/> </relation>
+   <relation name="System_counter"> <type name="steps/BaseSnapshot"/> <type name="NodeId"/> </relation>
+   <relation name="taken"> <type name="steps/BaseSnapshot"/> <type name="steps/TransitionLabel"/> </relation>
+</edge>
+
+<edge color="Gray" constraint="no">
+   <relation name="Next"> <type name="nodes/Ord"/> <type name="NodeId"/> <type name="NodeId"/> </relation>
+</edge>
+
+</view>
+
+</alloy>

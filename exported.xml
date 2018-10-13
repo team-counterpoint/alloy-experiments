@@ -1,0 +1,224 @@
+<alloy builddate="2018-04-08T17:20:06.754Z">
+
+<instance bitwidth="4" maxseq="4" command="Check MC_badLiveness for exactly 6 State, exactly 4 Phone, 6 Path" filename="/Users/mitchell/GitHub/alloy-experiments/path.als">
+
+<sig label="seq/Int" ID="0" parentID="1" builtin="yes">
+</sig>
+
+<sig label="Int" ID="1" parentID="2" builtin="yes">
+</sig>
+
+<sig label="String" ID="3" parentID="2" builtin="yes">
+</sig>
+
+<sig label="this/CW" ID="4" parentID="5" one="yes">
+   <atom label="CW$0"/>
+</sig>
+
+<sig label="this/CF" ID="6" parentID="5" one="yes">
+   <atom label="CF$0"/>
+</sig>
+
+<sig label="this/Feature" ID="5" parentID="2" abstract="yes">
+</sig>
+
+<sig label="this/Phone" ID="7" parentID="2">
+   <atom label="Phone$0"/>
+   <atom label="Phone$1"/>
+   <atom label="Phone$2"/>
+   <atom label="Phone$3"/>
+</sig>
+
+<field label="feature" ID="8" parentID="7">
+   <tuple> <atom label="Phone$2"/> <atom label="CW$0"/> </tuple>
+   <tuple> <atom label="Phone$3"/> <atom label="CW$0"/> </tuple>
+   <tuple> <atom label="Phone$3"/> <atom label="CF$0"/> </tuple>
+   <types> <type ID="7"/> <type ID="5"/> </types>
+</field>
+
+<field label="fw" ID="9" parentID="7">
+   <tuple> <atom label="Phone$3"/> <atom label="Phone$1"/> </tuple>
+   <types> <type ID="7"/> <type ID="7"/> </types>
+</field>
+
+<sig label="this/State" ID="10" parentID="2">
+   <atom label="State$0"/>
+   <atom label="State$1"/>
+   <atom label="State$2"/>
+   <atom label="State$3"/>
+   <atom label="State$4"/>
+   <atom label="State$5"/>
+</sig>
+
+<field label="idle" ID="11" parentID="10">
+   <tuple> <atom label="State$0"/> <atom label="Phone$0"/> </tuple>
+   <tuple> <atom label="State$0"/> <atom label="Phone$2"/> </tuple>
+   <tuple> <atom label="State$1"/> <atom label="Phone$1"/> </tuple>
+   <tuple> <atom label="State$1"/> <atom label="Phone$2"/> </tuple>
+   <tuple> <atom label="State$1"/> <atom label="Phone$3"/> </tuple>
+   <tuple> <atom label="State$2"/> <atom label="Phone$2"/> </tuple>
+   <tuple> <atom label="State$2"/> <atom label="Phone$3"/> </tuple>
+   <tuple> <atom label="State$3"/> <atom label="Phone$0"/> </tuple>
+   <tuple> <atom label="State$3"/> <atom label="Phone$2"/> </tuple>
+   <tuple> <atom label="State$3"/> <atom label="Phone$3"/> </tuple>
+   <tuple> <atom label="State$4"/> <atom label="Phone$1"/> </tuple>
+   <tuple> <atom label="State$4"/> <atom label="Phone$2"/> </tuple>
+   <tuple> <atom label="State$4"/> <atom label="Phone$3"/> </tuple>
+   <tuple> <atom label="State$5"/> <atom label="Phone$0"/> </tuple>
+   <tuple> <atom label="State$5"/> <atom label="Phone$1"/> </tuple>
+   <tuple> <atom label="State$5"/> <atom label="Phone$2"/> </tuple>
+   <tuple> <atom label="State$5"/> <atom label="Phone$3"/> </tuple>
+   <types> <type ID="10"/> <type ID="7"/> </types>
+</field>
+
+<field label="busy" ID="12" parentID="10">
+   <tuple> <atom label="State$1"/> <atom label="Phone$0"/> <atom label="Phone$1"/> </tuple>
+   <tuple> <atom label="State$1"/> <atom label="Phone$0"/> <atom label="Phone$3"/> </tuple>
+   <tuple> <atom label="State$4"/> <atom label="Phone$0"/> <atom label="Phone$1"/> </tuple>
+   <tuple> <atom label="State$4"/> <atom label="Phone$0"/> <atom label="Phone$3"/> </tuple>
+   <types> <type ID="10"/> <type ID="7"/> <type ID="7"/> </types>
+</field>
+
+<field label="calling" ID="13" parentID="10">
+   <tuple> <atom label="State$1"/> <atom label="Phone$1"/> <atom label="Phone$1"/> </tuple>
+   <tuple> <atom label="State$1"/> <atom label="Phone$3"/> <atom label="Phone$0"/> </tuple>
+   <tuple> <atom label="State$2"/> <atom label="Phone$1"/> <atom label="Phone$3"/> </tuple>
+   <tuple> <atom label="State$3"/> <atom label="Phone$1"/> <atom label="Phone$3"/> </tuple>
+   <tuple> <atom label="State$4"/> <atom label="Phone$1"/> <atom label="Phone$1"/> </tuple>
+   <tuple> <atom label="State$4"/> <atom label="Phone$3"/> <atom label="Phone$0"/> </tuple>
+   <types> <type ID="10"/> <type ID="7"/> <type ID="7"/> </types>
+</field>
+
+<field label="talkingTo" ID="14" parentID="10">
+   <tuple> <atom label="State$0"/> <atom label="Phone$1"/> <atom label="Phone$3"/> </tuple>
+   <tuple> <atom label="State$1"/> <atom label="Phone$0"/> <atom label="Phone$0"/> </tuple>
+   <tuple> <atom label="State$1"/> <atom label="Phone$0"/> <atom label="Phone$1"/> </tuple>
+   <tuple> <atom label="State$1"/> <atom label="Phone$0"/> <atom label="Phone$2"/> </tuple>
+   <tuple> <atom label="State$1"/> <atom label="Phone$0"/> <atom label="Phone$3"/> </tuple>
+   <tuple> <atom label="State$1"/> <atom label="Phone$1"/> <atom label="Phone$0"/> </tuple>
+   <tuple> <atom label="State$1"/> <atom label="Phone$1"/> <atom label="Phone$1"/> </tuple>
+   <tuple> <atom label="State$1"/> <atom label="Phone$1"/> <atom label="Phone$3"/> </tuple>
+   <tuple> <atom label="State$1"/> <atom label="Phone$2"/> <atom label="Phone$0"/> </tuple>
+   <tuple> <atom label="State$1"/> <atom label="Phone$2"/> <atom label="Phone$1"/> </tuple>
+   <tuple> <atom label="State$1"/> <atom label="Phone$2"/> <atom label="Phone$2"/> </tuple>
+   <tuple> <atom label="State$1"/> <atom label="Phone$2"/> <atom label="Phone$3"/> </tuple>
+   <tuple> <atom label="State$1"/> <atom label="Phone$3"/> <atom label="Phone$0"/> </tuple>
+   <tuple> <atom label="State$1"/> <atom label="Phone$3"/> <atom label="Phone$1"/> </tuple>
+   <tuple> <atom label="State$1"/> <atom label="Phone$3"/> <atom label="Phone$3"/> </tuple>
+   <tuple> <atom label="State$4"/> <atom label="Phone$0"/> <atom label="Phone$0"/> </tuple>
+   <tuple> <atom label="State$4"/> <atom label="Phone$0"/> <atom label="Phone$1"/> </tuple>
+   <tuple> <atom label="State$4"/> <atom label="Phone$0"/> <atom label="Phone$2"/> </tuple>
+   <tuple> <atom label="State$4"/> <atom label="Phone$0"/> <atom label="Phone$3"/> </tuple>
+   <tuple> <atom label="State$4"/> <atom label="Phone$1"/> <atom label="Phone$0"/> </tuple>
+   <tuple> <atom label="State$4"/> <atom label="Phone$1"/> <atom label="Phone$3"/> </tuple>
+   <tuple> <atom label="State$4"/> <atom label="Phone$2"/> <atom label="Phone$0"/> </tuple>
+   <tuple> <atom label="State$4"/> <atom label="Phone$2"/> <atom label="Phone$1"/> </tuple>
+   <tuple> <atom label="State$4"/> <atom label="Phone$2"/> <atom label="Phone$2"/> </tuple>
+   <tuple> <atom label="State$4"/> <atom label="Phone$2"/> <atom label="Phone$3"/> </tuple>
+   <tuple> <atom label="State$4"/> <atom label="Phone$3"/> <atom label="Phone$0"/> </tuple>
+   <tuple> <atom label="State$4"/> <atom label="Phone$3"/> <atom label="Phone$1"/> </tuple>
+   <tuple> <atom label="State$4"/> <atom label="Phone$3"/> <atom label="Phone$3"/> </tuple>
+   <types> <type ID="10"/> <type ID="7"/> <type ID="7"/> </types>
+</field>
+
+<field label="waitingFor" ID="15" parentID="10">
+   <tuple> <atom label="State$1"/> <atom label="Phone$0"/> <atom label="Phone$1"/> </tuple>
+   <tuple> <atom label="State$1"/> <atom label="Phone$0"/> <atom label="Phone$2"/> </tuple>
+   <tuple> <atom label="State$1"/> <atom label="Phone$0"/> <atom label="Phone$3"/> </tuple>
+   <tuple> <atom label="State$1"/> <atom label="Phone$3"/> <atom label="Phone$0"/> </tuple>
+   <tuple> <atom label="State$2"/> <atom label="Phone$0"/> <atom label="Phone$0"/> </tuple>
+   <tuple> <atom label="State$4"/> <atom label="Phone$0"/> <atom label="Phone$1"/> </tuple>
+   <tuple> <atom label="State$4"/> <atom label="Phone$0"/> <atom label="Phone$2"/> </tuple>
+   <tuple> <atom label="State$4"/> <atom label="Phone$0"/> <atom label="Phone$3"/> </tuple>
+   <tuple> <atom label="State$4"/> <atom label="Phone$3"/> <atom label="Phone$0"/> </tuple>
+   <types> <type ID="10"/> <type ID="7"/> <type ID="7"/> </types>
+</field>
+
+<field label="forwardedTo" ID="16" parentID="10">
+   <types> <type ID="10"/> <type ID="7"/> <type ID="7"/> </types>
+</field>
+
+<sig label="ctl/TS" ID="17" parentID="2" one="yes">
+   <atom label="ctl/TS$0"/>
+</sig>
+
+<field label="S0" ID="18" parentID="17">
+   <tuple> <atom label="ctl/TS$0"/> <atom label="State$5"/> </tuple>
+   <types> <type ID="17"/> <type ID="10"/> </types>
+</field>
+
+<field label="sigma" ID="19" parentID="17">
+   <tuple> <atom label="ctl/TS$0"/> <atom label="State$0"/> <atom label="State$5"/> </tuple>
+   <tuple> <atom label="ctl/TS$0"/> <atom label="State$1"/> <atom label="State$4"/> </tuple>
+   <tuple> <atom label="ctl/TS$0"/> <atom label="State$2"/> <atom label="State$3"/> </tuple>
+   <tuple> <atom label="ctl/TS$0"/> <atom label="State$3"/> <atom label="State$0"/> </tuple>
+   <tuple> <atom label="ctl/TS$0"/> <atom label="State$5"/> <atom label="State$3"/> </tuple>
+   <types> <type ID="17"/> <type ID="10"/> <type ID="10"/> </types>
+</field>
+
+<sig label="linkpath/Path" ID="20" parentID="2">
+   <atom label="linkpath/Path$0"/>
+   <atom label="linkpath/Path$1"/>
+   <atom label="linkpath/Path$2"/>
+</sig>
+
+<field label="next" ID="21" parentID="20">
+   <tuple> <atom label="linkpath/Path$0"/> <atom label="linkpath/Path$2"/> </tuple>
+   <tuple> <atom label="linkpath/Path$1"/> <atom label="linkpath/Path$0"/> </tuple>
+   <tuple> <atom label="linkpath/Path$2"/> <atom label="linkpath/Path$1"/> </tuple>
+   <types> <type ID="20"/> <type ID="20"/> </types>
+</field>
+
+<field label="state" ID="22" parentID="20">
+   <tuple> <atom label="linkpath/Path$0"/> <atom label="State$0"/> </tuple>
+   <tuple> <atom label="linkpath/Path$1"/> <atom label="State$3"/> </tuple>
+   <tuple> <atom label="linkpath/Path$2"/> <atom label="State$5"/> </tuple>
+   <types> <type ID="20"/> <type ID="10"/> </types>
+</field>
+
+<sig label="boolean/True" ID="23" parentID="24" one="yes">
+   <atom label="boolean/True$0"/>
+</sig>
+
+<sig label="boolean/False" ID="25" parentID="24" one="yes">
+   <atom label="boolean/False$0"/>
+</sig>
+
+<sig label="boolean/Bool" ID="24" parentID="2" abstract="yes">
+</sig>
+
+<sig label="univ" ID="2" builtin="yes">
+</sig>
+
+<sig label="linkpath/P0" ID="26" one="yes">
+   <atom label="linkpath/Path$2"/>
+   <type ID="20"/>
+</sig>
+
+<skolem label="$this/pathState" ID="m0">
+   <tuple> <atom label="State$0"/> </tuple>
+   <tuple> <atom label="State$3"/> </tuple>
+   <tuple> <atom label="State$5"/> </tuple>
+   <types> <type ID="10"/> </types>
+</skolem>
+
+<skolem label="$this/pathSigma" ID="m1">
+   <tuple> <atom label="State$0"/> <atom label="State$5"/> </tuple>
+   <tuple> <atom label="State$3"/> <atom label="State$0"/> </tuple>
+   <tuple> <atom label="State$5"/> <atom label="State$3"/> </tuple>
+   <types> <type ID="10"/> <type ID="10"/> </types>
+</skolem>
+
+</instance>
+
+<source filename="/Users/mitchell/GitHub/alloy-experiments/path.als" content="/* Authors: Sabria Farheen, Nancy A. Day, Amirhossein Vakili, Ali Abbassi&#x000a; * Date: October 1, 2017&#x000a; */&#x000a;&#x000a;open ctl[State]&#x000a;open linkpath[State]&#x000a;open util/boolean&#x000a;&#x000a;//***********************STATE SPACE*************************//&#x000a;&#x000a;// Feature={CW,CF} is the set of features.&#x000a;abstract sig Feature{}&#x000a;one sig CW,CF extends Feature{}&#x000a;&#x000a;// Each phone number can have some features. &#x000a;//If a number has call-forwarding (CF), fw points to forwarded number.&#x000a;sig Phone{ &#x000a;&#x0009;feature: set Feature, &#x000a;&#x0009;fw: set Phone, &#x000a;} &#x000a;fact { // facts about types (Phone)&#x000a;&#x0009;// any PN can only have 0 or 1 PN as its fw number&#x000a;&#x0009;all n:Phone| lone n.fw&#x000a;&#x0009;// CF is a feature of PN only if the PN has a fw number set&#x000a;&#x0009;all n:Phone| CF in n.feature iff some n.fw&#x000a;&#x0009;// no number is forwarded to itself thru other numbers&#x0009;&#x000a;&#x0009;no (iden &amp; (^fw))  &#x000a;}&#x000a;&#x000a;// Used to model the global states.&#x000a;sig State{&#x000a;&#x0009;// Numbers that are idle,&#x000a;&#x0009;idle: set Phone,&#x000a;&#x0009;// (a-&gt;b) in busy iff a wants to talk to b, but b is not idle&#x000a;&#x0009;busy: Phone -&gt; Phone,&#x000a;&#x0009;// (a-&gt;b) in calling iff a is trying to call b&#x000a;&#x0009;calling: Phone -&gt; Phone,&#x000a;&#x0009;// (a-&gt;b) in talking iff a is talking to b&#x000a;&#x0009;talkingTo: Phone -&gt; Phone,&#x000a;&#x0009;// (a-&gt;b) in waitingFor iff a is waiting for b&#x000a;&#x0009;waitingFor: Phone -&gt; Phone,&#x000a;&#x0009;// (a-&gt;b) in forwardedTo iff a is forwarded to b&#x000a;&#x0009;forwardedTo: Phone -&gt; Phone&#x000a;}&#x000a;&#x000a;//*****************INITIAL STATE CONSTRAINTS********************//&#x000a;&#x000a;pred initial[s:State]{&#x000a;&#x0009;s.idle = Phone&#x000a;&#x0009;no s.calling&#x000a;&#x0009;no s.talkingTo&#x000a;&#x0009;no s.busy&#x000a;&#x0009;no s.waitingFor&#x000a;&#x0009;no s.forwardedTo&#x000a;}&#x000a;&#x000a;//*****************TRANSITION CONSTRAINTS/OPERATIONS********************//&#x000a;&#x000a;pred pre_idle_calling[s: State,n,n&apos;:Phone]{&#x000a;&#x0009;n in s.idle&#x000a;&#x0009;n != n&apos;&#x0009;&#x000a;}&#x000a;pred post_idle_calling[s,s&apos;: State,n,n&apos;:Phone]{&#x000a;&#x0009;s&apos;.idle = ((s.idle) - n)&#x000a;&#x0009;s&apos;.calling = s.calling + (n-&gt;n&apos;)&#x0009;&#x000a;&#x000a;&#x0009;s&apos;.talkingTo = s.talkingTo&#x000a;&#x0009;s&apos;.busy = s.busy&#x000a;&#x0009;s&apos;.waitingFor = s.waitingFor&#x000a;&#x0009;s&apos;.forwardedTo = s.forwardedTo&#x000a;}&#x000a;pred idle_calling[s,s&apos;: State,n,n&apos;:Phone]{&#x000a;&#x0009;pre_idle_calling[s,n,n&apos;]&#x0009;&#x000a;&#x0009;post_idle_calling[s,s&apos;,n,n&apos;]&#x000a;}&#x000a;&#x000a;&#x000a;pred pre_calling_talkingTo[s:State,n,n&apos;:Phone]{&#x000a;&#x0009;n-&gt;n&apos; in s.calling&#x000a;&#x0009;n&apos; in s.idle&#x000a;}&#x000a;pred post_calling_talkingTo[s,s&apos;:State,n,n&apos;:Phone]{&#x000a;&#x0009;s&apos;.idle = s.idle - n&apos;&#x000a;&#x0009;s&apos;.calling = s.calling - (n -&gt; n&apos;)&#x000a;&#x0009;s&apos;.talkingTo = s.talkingTo + (n -&gt; n&apos;)&#x000a;&#x000a;&#x0009;s&apos;.busy = s.busy&#x000a;&#x0009;s&apos;.waitingFor = s.waitingFor&#x000a;&#x0009;s&apos;.forwardedTo = s.forwardedTo&#x000a;}&#x000a;pred calling_talkingTo[s,s&apos;:State,n,n&apos;:Phone]{&#x000a;&#x0009;pre_calling_talkingTo[s,n,n&apos;]&#x000a;&#x0009;post_calling_talkingTo[s,s&apos;,n,n&apos;]&#x000a;}&#x000a;&#x000a;pred pre_talkingTo_idle[s:State,n,n&apos;:Phone]{&#x000a;&#x0009;n -&gt; n&apos; in s.talkingTo&#x000a;}&#x000a;pred post_talkingTo_idle[s,s&apos;:State,n,n&apos;:Phone]{&#x000a;&#x0009;s&apos;.talkingTo = s.talkingTo - (n-&gt;n&apos;)&#x000a;&#x0009;s&apos;.idle = s.idle + (n + n&apos;)&#x000a;&#x000a;&#x0009;s&apos;.busy = s.busy&#x000a;&#x0009;s&apos;.calling = s.calling&#x000a;&#x0009;s&apos;.waitingFor = s.waitingFor&#x000a;&#x0009;s&apos;.forwardedTo = s.forwardedTo&#x000a;}&#x000a;pred talkingTo_idle[s,s&apos;:State,n,n&apos;:Phone]{&#x000a;&#x0009;pre_talkingTo_idle[s,n,n&apos;]&#x000a;&#x0009;post_talkingTo_idle[s,s&apos;,n,n&apos;]&#x000a;}&#x000a;&#x000a;pred pre_calling_busy[s:State,n,n&apos;:Phone]{&#x000a;&#x0009;n-&gt;n&apos; in s.calling&#x000a;&#x0009;n&apos; not in s.idle&#x000a;}&#x000a;pred post_calling_busy[s,s&apos;:State,n,n&apos;:Phone]{&#x000a;&#x0009;s&apos;.calling = s.calling - (n-&gt;n&apos;)&#x000a;&#x0009;s&apos;.busy = s.busy + (n-&gt;n&apos;)&#x000a;&#x0009;&#x000a;&#x0009;s&apos;.idle = s.idle&#x000a;&#x0009;s&apos;.talkingTo = s.talkingTo&#x000a;&#x0009;s&apos;.waitingFor = s.waitingFor&#x000a;&#x0009;s&apos;.forwardedTo = s.forwardedTo&#x000a;}&#x000a;pred calling_busy[s,s&apos;:State,n,n&apos;:Phone]{&#x000a;&#x0009;pre_calling_busy[s,n,n&apos;]&#x000a;&#x0009;post_calling_busy[s,s&apos;,n,n&apos;]&#x000a;}&#x000a;&#x000a;pred pre_busy_waitingFor[s:State,n,n&apos;:Phone]{&#x000a;&#x0009;(n-&gt;n&apos;) in s.busy&#x000a;&#x0009;CW in n&apos;.feature&#x000a;&#x0009;// PN is not already being waited for, i.e.,&#x000a;&#x0009;// can have only one call in CW queue, otherwise stay busy&#x000a;&#x0009;n&apos; not in Phone.(s.waitingFor)&#x000a;}&#x000a;pred post_busy_waitingFor[s,s&apos;:State,n,n&apos;:Phone]{&#x000a;&#x0009;s&apos;.busy = s.busy - (n-&gt;n&apos;)&#x000a;&#x0009;s&apos;.waitingFor = s.waitingFor + (n-&gt;n&apos;)&#x000a;&#x000a;&#x0009;s&apos;.forwardedTo = s.forwardedTo&#x0009;&#x000a;&#x0009;s&apos;.idle = s.idle&#x000a;&#x0009;s&apos;.calling = s.calling&#x000a;&#x0009;s&apos;.talkingTo = s.talkingTo&#x000a;}&#x000a;pred busy_waitingFor[s,s&apos;:State,n,n&apos;:Phone]{&#x000a;&#x0009;pre_busy_waitingFor[s,n,n&apos;]&#x000a;&#x0009;post_busy_waitingFor[s,s&apos;,n,n&apos;]&#x000a;}&#x000a;&#x000a;// caller on CW hangs up&#x000a;pred pre_waitingFor_idle[s:State,n,n&apos;:Phone]{&#x000a;&#x0009;n -&gt; n&apos; in s.waitingFor&#x000a;}&#x000a;pred post_waitingFor_idle[s,s&apos;:State,n,n&apos;:Phone]{&#x0009;&#x000a;&#x0009;s&apos;.waitingFor = s.waitingFor - (n -&gt; n&apos;)&#x0009;&#x000a;&#x0009;s&apos;.idle = s.idle + n&#x000a;&#x000a;&#x0009;s&apos;.calling = s.calling&#x000a;&#x0009;s&apos;.talkingTo = s.talkingTo&#x000a;&#x0009;s&apos;.busy = s.busy&#x000a;&#x0009;s&apos;.forwardedTo = s.forwardedTo&#x000a;}&#x000a;pred waitingFor_idle[s,s&apos;:State,n,n&apos;:Phone]{&#x000a;&#x0009;pre_waitingFor_idle[s,n,n&apos;]&#x000a;&#x0009;post_waitingFor_idle[s,s&apos;,n,n&apos;]&#x000a;}&#x000a;&#x000a;pred pre_waitingFor_talkingTo[s:State,n,n&apos;:Phone]{&#x000a;&#x0009;n -&gt; n&apos; in s.waitingFor&#x000a;}&#x000a;pred post_waitingFor_talkingTo[s,s&apos;:State,n,n&apos;:Phone]{&#x000a;&#x0009;s&apos;.waitingFor = s.waitingFor - (n -&gt; n&apos;)&#x000a;&#x0009;s&apos;.talkingTo = s.talkingTo + (n -&gt; n&apos;)&#x000a;&#x000a;&#x0009;s&apos;.idle = s.idle &#x000a;&#x0009;s.busy = s&apos;.busy&#x000a;&#x0009;s.forwardedTo = s&apos;.forwardedTo&#x000a;&#x0009;s.calling = s&apos;.calling&#x000a;}&#x000a;pred waitingFor_talkingTo[s,s&apos;:State,n,n&apos;:Phone]{&#x000a;&#x0009;pre_waitingFor_talkingTo[s,n,n&apos;]&#x000a;&#x0009;post_waitingFor_talkingTo[s,s&apos;,n,n&apos;]&#x000a;}&#x000a;&#x000a;pred pre_busy_forwardedTo[s:State,n,n&apos;:Phone]{&#x000a;&#x0009;n -&gt; n&apos; in s.busy&#x000a;&#x0009;CF in n&apos;.feature&#x000a;}&#x000a;pred post_busy_forwardedTo[s,s&apos;:State,n,n&apos;:Phone]{&#x000a;&#x0009;s&apos;.busy = s.busy - (n -&gt; n&apos;)&#x000a;&#x0009;s&apos;.forwardedTo = s.forwardedTo + (n -&gt; n&apos;.fw)&#x000a;&#x000a;&#x0009;s&apos;.idle = s.idle&#x000a;&#x0009;s&apos;.talkingTo = s.talkingTo&#x000a;&#x0009;s&apos;.calling = s.calling &#x000a;&#x0009;s&apos;.waitingFor = s.waitingFor&#x000a;}&#x000a;pred busy_forwardedTo[s,s&apos;:State,n,n&apos;:Phone]{&#x000a;&#x0009;pre_busy_forwardedTo[s,n,n&apos;]&#x000a;&#x0009;post_busy_forwardedTo[s,s&apos;,n,n&apos;]&#x000a;}&#x000a;&#x000a;pred pre_forwardedTo_calling[s:State,n,n&apos;:Phone]{&#x000a;&#x0009;n -&gt; n&apos; in s.forwardedTo&#x000a;}&#x000a;pred post_forwardedTo_calling[s,s&apos;:State,n,n&apos;:Phone]{&#x000a;&#x0009;s&apos;.forwardedTo = s.forwardedTo - (n-&gt;n&apos;)&#x000a;&#x0009;s&apos;.calling = s.calling + (n -&gt; n&apos;)&#x000a;&#x000a;&#x0009;s&apos;.idle = s.idle&#x000a;&#x0009;s&apos;.busy = s.busy&#x000a;&#x0009;s&apos;.talkingTo = s.talkingTo&#x000a;&#x0009;s&apos;.waitingFor = s.waitingFor&#x000a;}&#x000a;pred forwardedTo_calling[s,s&apos;:State,n,n&apos;:Phone]{&#x000a;&#x0009;pre_forwardedTo_calling[s,n,n&apos;]&#x000a;&#x0009;post_forwardedTo_calling[s,s&apos;,n,n&apos;]&#x000a;}&#x000a;&#x000a;pred pre_busy_idle[s:State,n,n&apos;:Phone]{&#x000a;&#x0009;n -&gt; n&apos; in s.busy&#x000a;&#x0009;no n&apos;.feature&#x000a;}&#x000a;pred post_busy_idle[s,s&apos;:State,n,n&apos;:Phone]{&#x000a;&#x0009;s&apos;.busy = s.busy - (n -&gt; n&apos;)&#x000a;&#x0009;s&apos;.idle = s.idle + n&#x000a;&#x000a;&#x0009;s.talkingTo = s&apos;.talkingTo&#x000a;&#x0009;s.waitingFor = s&apos;.waitingFor&#x000a;&#x0009;s.forwardedTo = s&apos;.forwardedTo&#x000a;&#x0009;s.calling = s&apos;.calling&#x000a;}&#x000a;pred busy_idle[s,s&apos;:State,n,n&apos;:Phone]{&#x000a;&#x0009;pre_busy_idle[s,n,n&apos;]&#x000a;&#x0009;post_busy_idle[s,s&apos;,n,n&apos;]&#x000a;}&#x000a;&#x000a;&#x000a;//*****************MODEL DEFINITION********************//&#x000a;&#x000a;fact md{&#x000a;&#x0009;// init state constraint&#x000a;&#x0009;all s:State | s in initialState iff initial[s]&#x0009;&#x000a;&#x0009;// transition constraints&#x000a;&#x0009;all s,s&apos;: State| &#x000a;&#x0009;&#x0009;((s-&gt;s&apos;) in nextState) iff&#x000a;&#x0009;&#x0009;(some n,n&apos;:Phone|(&#x000a;&#x0009;&#x0009;&#x0009;idle_calling[s,s&apos;,n,n&apos;] or calling_talkingTo[s,s&apos;,n,n&apos;] or talkingTo_idle[s,s&apos;,n,n&apos;] or&#x000a;&#x0009;&#x0009;&#x0009;calling_busy[s,s&apos;,n,n&apos;] or busy_waitingFor[s,s&apos;,n,n&apos;] or busy_forwardedTo[s,s&apos;,n,n&apos;] or&#x000a;&#x0009;&#x0009;&#x0009;busy_idle[s,s&apos;,n,n&apos;] or waitingFor_idle[s,s&apos;,n,n&apos;] or waitingFor_talkingTo[s,s&apos;,n,n&apos;] or&#x000a;&#x0009;&#x0009;&#x0009;forwardedTo_calling[s,s&apos;,n,n&apos;]))&#x000a;&#x0009;// equality predicate: states are records&#x000a;&#x0009;all s,s&apos;:State|(&#x000a;&#x0009;&#x0009;((s.idle = s&apos;.idle) and (s.calling = s&apos;.calling) and &#x000a;&#x0009;&#x0009;(s.talkingTo = s&apos;.talkingTo) and (s.busy = s&apos;.busy) and&#x000a;&#x0009;&#x0009;(s.waitingFor = s&apos;.waitingFor) and (s.forwardedTo = s&apos;.forwardedTo)) implies (s =s&apos;))&#x000a;}&#x000a;&#x000a;//*****************SIGNIFICANCE AXIOMS********************//&#x000a;pred initialStateAxiom {&#x000a;&#x0009;some s: State | s in initialState&#x000a;}&#x000a;pred totalityAxiom {&#x000a;&#x0009;all s: State | some s&apos;:State | s-&gt;s&apos; in nextState&#x000a;}&#x000a;pred operationsAxiom {&#x000a;&#x0009;// at least one state must satisfy precons of each op&#x000a;&#x0009;some s:State | some n,n&apos;:Phone | pre_idle_calling[s,n,n&apos;]&#x000a;&#x0009;some s:State | some n,n&apos;:Phone | pre_calling_talkingTo[s,n,n&apos;]&#x000a;&#x0009;some s:State | some n,n&apos;:Phone | pre_talkingTo_idle[s,n,n&apos;]&#x000a;&#x0009;some s:State | some n,n&apos;:Phone | pre_calling_busy[s,n,n&apos;]&#x000a;&#x0009;some s:State | some n,n&apos;:Phone | pre_busy_waitingFor[s,n,n&apos;]&#x000a;&#x0009;some s:State | some n,n&apos;:Phone | pre_busy_forwardedTo[s,n,n&apos;]&#x000a;&#x0009;some s:State | some n,n&apos;:Phone | pre_busy_idle[s,n,n&apos;]&#x000a;&#x0009;some s:State | some n,n&apos;:Phone | pre_waitingFor_idle[s,n,n&apos;]&#x000a;&#x0009;some s:State | some n,n&apos;:Phone | pre_waitingFor_talkingTo[s,n,n&apos;]&#x000a;&#x0009;some s:State | some n,n&apos;:Phone | pre_forwardedTo_calling[s,n,n&apos;]&#x000a;&#x0009;// all possible ops from state must exist&#x000a;&#x0009;all s:State | some n,n&apos;:Phone | pre_idle_calling[s,n,n&apos;] implies some s&apos;:State | post_idle_calling[s,s&apos;,n,n&apos;]&#x000a;&#x0009;all s:State | some n,n&apos;:Phone | pre_calling_talkingTo[s,n,n&apos;] implies some s&apos;:State | post_calling_talkingTo[s,s&apos;,n,n&apos;]&#x000a;&#x0009;all s:State | some n,n&apos;:Phone | pre_talkingTo_idle[s,n,n&apos;] implies some s&apos;:State | post_talkingTo_idle[s,s&apos;,n,n&apos;]&#x000a;&#x0009;all s:State | some n,n&apos;:Phone | pre_calling_busy[s,n,n&apos;] implies some s&apos;:State | post_calling_busy[s,s&apos;,n,n&apos;]&#x000a;&#x0009;all s:State | some n,n&apos;:Phone | pre_busy_waitingFor[s,n,n&apos;] implies some s&apos;:State | post_busy_waitingFor[s,s&apos;,n,n&apos;]&#x000a;&#x0009;all s:State | some n,n&apos;:Phone | pre_busy_forwardedTo[s,n,n&apos;] implies some s&apos;:State | post_busy_forwardedTo[s,s&apos;,n,n&apos;]&#x000a;&#x0009;all s:State | some n,n&apos;:Phone | pre_busy_idle[s,n,n&apos;] implies some s&apos;:State | post_busy_idle[s,s&apos;,n,n&apos;]&#x000a;&#x0009;all s:State | some n,n&apos;:Phone | pre_waitingFor_idle[s,n,n&apos;] implies some s&apos;:State | post_waitingFor_idle[s,s&apos;,n,n&apos;]&#x000a;&#x0009;all s:State | some n,n&apos;:Phone | pre_waitingFor_talkingTo[s,n,n&apos;] implies some s&apos;:State | post_waitingFor_talkingTo[s,s&apos;,n,n&apos;]&#x000a;&#x0009;all s:State | some n,n&apos;:Phone | pre_forwardedTo_calling[s,n,n&apos;] implies some s&apos;:State | post_forwardedTo_calling[s,s&apos;,n,n&apos;]&#x000a;}&#x000a;pred significanceAxioms {&#x000a;&#x0009;initialStateAxiom&#x000a;&#x0009;totalityAxiom&#x000a;&#x0009;operationsAxiom&#x000a;}&#x000a;// increment scope until scope satisfies all preds including Sig. Axioms&#x000a;run significanceAxioms for exactly 6 State, exactly 4 Phone&#x000a;&#x000a;//*****************PROPERTIES/CHECK********************//&#x000a;pred safety [s:State] {&#x000a;&#x0009;// no PN is both being waited for and being forwarded to&#x000a;&#x0009;no s.waitingFor.Phone &amp; s.forwardedTo.Phone&#x000a;}&#x000a;&#x000a;assert MC { ctl_mc[ag[{s:State | safety[s]}]] }&#x000a;check MC for exactly 6 State, exactly 4 Phone&#x000a;&#x000a;//*****************COUNTEREXAMPLE PATH********************//&#x000a;&#x000a;fun pathState: State { linkpath/pathState }&#x000a;fun pathSigma: State-&gt;State { linkpath/pathSigma }&#x000a;&#x000a;pred badSafety [s:State] {&#x000a;&#x0009;// This safety property is wrong. We should get a counterexample.&#x000a;&#x0009;#s.idle &gt; 1&#x000a;}&#x000a;//assert MC_badSafety { ctl_mc[ag[{s:State | badSafety[s]}]] }&#x000a;//fact { p_finite[p_ef[not_[{s:State | badSafety[s]}]]] }&#x000a;//check MC_badSafety for exactly 6 State, exactly 4 Phone, 6 Path&#x000a;&#x000a;pred badLiveness [s:State] {&#x000a;&#x0009;// This liveness property is wrong. We should get an infinite counterexample.&#x000a;&#x0009;#s.idle &gt; 10&#x000a;}&#x000a;assert MC_badLiveness { ctl_mc[af[{s:State | badLiveness[s]}]] }&#x000a;fact { p_infinite[p_eg[not_[{s:State | badLiveness[s]}]]] }&#x000a;check MC_badLiveness for exactly 6 State, exactly 4 Phone, 6 Path&#x000a;&#x000a;&#x000a;"/>
+
+<source filename="/$alloy4$/models/util/integer.als" content="module util/integer&#x000a;&#x000a;/*&#x000a; * A collection of utility functions for using Integers in Alloy.&#x000a; * Note that integer overflows are silently truncated to the current bitwidth&#x000a; * using the 2&apos;s complement arithmetic, unless the &quot;forbid overfows&quot; option is&#x000a; * turned on, in which case only models that don&apos;t have any overflows are &#x000a; * analyzed. &#x000a; */&#x000a;&#x000a;fun add  [n1, n2: Int] : Int { this/plus[n1, n2] }&#x000a;fun plus [n1, n2: Int] : Int { n1 fun/add n2 }&#x000a;&#x000a;fun sub   [n1, n2: Int] : Int { this/minus[n1, n2] }&#x000a;fun minus [n1, n2: Int] : Int { n1 fun/sub n2 }&#x000a;&#x000a;fun mul [n1, n2: Int] : Int { n1 fun/mul n2 }&#x000a;&#x000a;/**&#x000a; * Performs the division with &quot;round to zero&quot; semantics, except the following 3 cases&#x000a; * 1) if a is 0, then it returns 0&#x000a; * 2) else if b is 0, then it returns 1 if a is negative and -1 if a is positive&#x000a; * 3) else if a is the smallest negative integer, and b is -1, then it returns a&#x000a; */&#x000a;fun div [n1, n2: Int] : Int { n1 fun/div n2 }&#x000a;&#x000a;/** answer is defined to be the unique integer that satisfies &quot;a = ((a/b)*b) + remainder&quot; */&#x000a;fun rem [n1, n2: Int] : Int { n1 fun/rem n2 }&#x000a;&#x000a;/** negate */&#x000a;fun negate [n: Int] : Int { 0 fun/sub n }&#x000a;&#x000a;/** equal to */&#x000a;pred eq [n1, n2: Int] { int[n1] = int[n2] }&#x000a;&#x000a;/** greater than */&#x000a;pred gt [n1, n2: Int] { n1 &gt; n2 }&#x000a;&#x000a;/** less then */&#x000a;pred lt [n1, n2: Int] { n1 &lt; n2 }&#x000a;&#x000a;/** greater than or equal */&#x000a;pred gte [n1, n2: Int] { n1 &gt;= n2 }&#x000a;&#x000a;/** less than or equal */&#x000a;pred lte [n1, n2: Int] { n1 &lt;= n2 }&#x000a;&#x000a;/** integer is zero */&#x000a;pred zero [n: Int] { n = 0 }&#x000a;&#x000a;/** positive */&#x000a;pred pos  [n: Int] { n &gt; 0 }&#x000a;&#x000a;/** negative */&#x000a;pred neg  [n: Int] { n &lt; 0 }&#x000a;&#x000a;/** non-positive */&#x000a;pred nonpos [n: Int] { n &lt;= 0 }&#x000a;&#x000a;/** non-negative */&#x000a;pred nonneg [n: Int] { n &gt;= 0 }&#x000a;&#x000a;/** signum (aka sign or sgn) */&#x000a;fun signum [n: Int] : Int { n&lt;0 =&gt; (0 fun/sub 1) else (n&gt;0 =&gt; 1 else 0) }&#x000a;&#x000a;/**&#x000a; * returns the ith element (zero-based) from the set s&#x000a; * in the ordering of &apos;next&apos;, which is a linear ordering&#x000a; * relation like that provided by util/ordering&#x000a; */&#x000a;fun int2elem[i: Int, next: univ-&gt;univ, s: set univ] : lone s {&#x000a;  {e: s | #^next.e = int i }&#x000a;}&#x000a;&#x000a;/**&#x000a; * returns the index of the element (zero-based) in the&#x000a; * ordering of next, which is a linear ordering relation&#x000a; * like that provided by util/ordering&#x000a; */&#x000a;fun elem2int[e: univ, next: univ-&gt;univ] : lone Int {&#x000a;  Int[#^next.e]&#x000a;}&#x000a;&#x000a;/** returns the largest integer in the current bitwidth */&#x000a;fun max:one Int { fun/max }&#x000a;&#x000a;/** returns the smallest integer in the current bitwidth */&#x000a;fun min:one Int { fun/min }&#x000a;&#x000a;/** maps each integer (except max) to the integer after it */&#x000a;fun next:Int-&gt;Int { fun/next }&#x000a;&#x000a;/** maps each integer (except min) to the integer before it */&#x000a;fun prev:Int-&gt;Int { ~next }&#x000a;&#x000a;/** given a set of integers, return the largest element */&#x000a;fun max [es: set Int]: lone Int { es - es.^prev }&#x000a;&#x000a;/** given a set of integers, return the smallest element */&#x000a;fun min [es: set Int]: lone Int { es - es.^next }&#x000a;&#x000a;/** given an integer, return all integers prior to it */&#x000a;fun prevs [e: Int]: set Int { e.^prev }&#x000a;&#x000a;/** given an integer, return all integers following it */&#x000a;fun nexts [e: Int]: set Int { e.^next }&#x000a;&#x000a;/** returns the larger of the two integers */&#x000a;fun larger [e1, e2: Int]: Int { let a=int[e1], b=int[e2] | (a&lt;b =&gt; b else a) }&#x000a;&#x000a;/** returns the smaller of the two integers */&#x000a;fun smaller [e1, e2: Int]: Int { let a=int[e1], b=int[e2] | (a&lt;b =&gt; a else b) }&#x000a;"/>
+
+<source filename="/Users/mitchell/GitHub/alloy-experiments/ctl.als" content="/*&#x000a; * Copyright (c) 2017, Amirhossein Vakili, Sabria Farheen, Nancy A. Day, Ali Abbassi&#x000a; * All rights reserved.&#x000a; *&#x000a; * Redistribution and use in source and binary forms, with or without &#x000a; * modification, are permitted provided that the following conditions &#x000a; * are met:&#x000a; *&#x000a; *    1. Redistributions of source code must retain the above copyright&#x000a; *    notice, this list of conditions and the following disclaimer.&#x000a; *&#x000a; *    2. Redistributions in binary form must reproduce the above copyright &#x000a; *    notice, this list of conditions and the following disclaimer in the&#x000a; *    documentation and/or other materials provided with the distribution.&#x000a; *&#x000a; * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS&#x000a; * &quot;AS IS&quot; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT&#x000a; * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR&#x000a; * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT &#x000a; * HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,&#x000a; * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT&#x000a; * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,&#x000a; * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY&#x000a; * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT&#x000a; * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE&#x000a; * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.&#x000a; */&#x000a;&#x000a;module ctl[S]&#x000a;&#x000a;&#x000a;//********************KRIPKE STRUCTURE DEF*************************//&#x000a;&#x000a;one sig TS{&#x000a;    S0: some S,&#x000a;    sigma: S -&gt; S,&#x000a;}&#x000a;&#x000a;&#x000a;//********************MODEL SET UP FUNCTIONS*************************//&#x000a;// set by users in their model files&#x000a;&#x000a;fun initialState: S {TS.S0}&#x000a;&#x000a;fun nextState: S -&gt; S {TS.sigma}&#x000a;&#x000a;&#x000a;//********************HELPER FUNCTIONS*************************//&#x000a;&#x000a;private fun domainRes[R: S -&gt; S, X: S]: S -&gt; S{X &lt;: R}&#x000a;private fun id[X:S]: S-&gt;S{domainRes[iden,X]}&#x000a;&#x000a;&#x000a;//********************LOGICAL OPERATORS*************************//&#x000a;&#x000a;fun not_[phi: S]: S {S - phi}&#x000a;fun and_[phi, si: S]: S {phi &amp; si}&#x000a;fun or_[phi, si: S]: S {phi + si}&#x000a;fun imp_[phi, si: S]: S {not_[phi] + si}&#x000a;&#x000a;&#x000a;//********************TEMPORAL OPERATORS*************************//&#x000a;&#x000a;fun ex[phi: S]: S {TS.sigma.phi}&#x000a;&#x000a;fun ax[phi:S]:S {not_[ex[not_[phi]]]}&#x000a;&#x000a;fun ef[phi: S]: S {(*(TS.sigma)).phi }&#x000a;&#x000a;fun eg[phi: S]: S { &#x000a;    let R= domainRes[TS.sigma,phi]|&#x000a;        *R.((^R &amp; id[S]).S)&#x000a;}&#x000a;&#x000a;fun af[phi: S]: S {not_[eg[not_[phi]]]}&#x000a;&#x000a;fun ag[phi: S]: S {not_[ef[not_[phi]]]}&#x000a;&#x000a;fun eu[phi, si: S]: S {(*(domainRes[TS.sigma, phi])).si}&#x000a;&#x000a;&#x000a;//********************MODEL CHECKING CONSTRAINT*************************//&#x000a;// called by users for mc in their model file&#x000a;pred ctl_mc[phi: S]{TS.S0 in phi}&#x000a;"/>
+
+<source filename="/Users/mitchell/GitHub/alloy-experiments/linkpath.als" content="// Team Counterpoint&#x000a;&#x000a;module linkpath[State]&#x000a;&#x000a;open ctl[State]&#x000a;&#x000a;// ********** Path definition **********&#x000a;&#x000a;// Linked list path structure.&#x000a;sig Path {&#x000a;&#x0009;next: lone Path,&#x000a;&#x0009;state: disj one State&#x000a;}&#x000a;&#x000a;// The first node in the path.&#x000a;one sig P0 in Path {}&#x000a;&#x000a;// States that are part of the path.&#x000a;fun pathState: State { Path.state }&#x000a;// A subset of sigma for the path.&#x000a;fun pathSigma: State -&gt; State { ~state.next.state }&#x000a;&#x000a;private pred finite { some p:Path | no p.next }&#x000a;private fun last: Path { {p:Path | no p.next} }&#x000a;private fun loop: Path { {p:Path | p in p.^next} }&#x000a;&#x000a;fact {&#x000a;&#x0009;// Successive states in path are connected by transitions.&#x000a;&#x0009;pathSigma in TS.sigma&#x000a;&#x0009;// It includes an initial state.&#x000a;&#x0009;P0.state in TS.S0&#x000a;&#x0009;// The path is connected.&#x000a;&#x0009;P0.*next = Path&#x000a;}&#x000a;&#x000a;// ********** Non-nested properties **********&#x000a;&#x000a;// Counterexample for AX(phi), i.e. witness for EX(!phi). Finite.&#x000a;pred path_ax[phi:State] {&#x000a;&#x0009;#Path = 2&#x000a;&#x0009;last.state not in phi&#x000a;}&#x000a;&#x000a;// Counterexample for AG(phi), i.e. witness for EF(!phi). Finite.&#x000a;pred path_ag[phi:State] {&#x000a;&#x0009;finite&#x000a;&#x0009;last.state not in phi&#x000a;}&#x000a;&#x000a;// Counterexample for AF(phi), i.e. witness for EG(!phi). Infinite.&#x000a;pred path_af[phi:State] {&#x000a;&#x0009;not finite&#x000a;&#x0009;no Path.state &amp; phi&#x000a;}&#x000a;&#x000a;&#x000a;// Counterexample for A(phi U si), i.e. witness for E(phi W !si). (In)finite.&#x000a;pred path_au[phi:State, si:State] {&#x000a;&#x0009;finite =&gt; (Path.state - last.state) in phi and last.state in (State - phi - si)&#x000a;&#x0009;else Path.state in phi&#x000a;}&#x000a;&#x000a;// Counterexample for A(phi W si), i.e. witness for E(phi U !si). Finite.&#x000a;pred path_au[phi:State, si:State] {&#x000a;&#x0009;finite&#x000a;&#x0009;(Path.state - last.state) in phi&#x000a;&#x0009;last.state in (State - phi - si)&#x000a;}&#x000a;&#x000a;// ********** Specific nested properties **********&#x000a;&#x000a;// Counterexample for AFAG(phi), i.e. witness for EGEF(!phi). Infinite.&#x000a;pred path_af_ag[phi:State] {&#x000a;&#x0009;not finite&#x000a;&#x0009;loop.state not in phi&#x000a;}&#x000a;&#x000a;// Counterexample for AGAF(phi), i.e. witness for EFEG(!phi). Infinite.&#x000a;pred path_ag_af[phi:State] {&#x000a;&#x0009;not finite&#x000a;&#x0009;no loop.state &amp; phi&#x000a;}&#x000a;&#x000a;// Counterexample for AG(phi &amp; AF(si)), i.e. witness for EF(!phi | EG(si)). (In)finite.&#x000a;pred path_ag_and_af[phi:State, si:State] {&#x000a;&#x0009;finite =&gt; last.state not in phi else loop.state in si&#x000a;}&#x000a;&#x000a;// Counterexample for AF(phi &amp; AF(si)), i.e. witness for EG(!phi | EF(si)). Infinite.&#x000a;pred path_af_and_ag[phi:State, si:State] {&#x000a;&#x0009;not finite&#x000a;&#x0009;(no Path.state &amp; phi) or (some loop.state &amp; phi)&#x000a;}&#x000a;&#x000a;// Counterexample for AG(phi =&gt; AX(si)), i.e. witness for EF(phi &amp; !EX(si)). Finite.&#x000a;pred path_ag_implies_ax[phi:State, si:State] {&#x000a;&#x0009;finite&#x000a;&#x0009;last.~next.state in phi&#x000a;&#x0009;last.state not in si&#x000a;}&#x000a;&#x000a;// Counterexample for AF(phi =&gt; AX(si)), i.e. witness for EG(phi &amp; !EX(si)). Infinite.&#x000a;pred path_ag_implies_ax[phi:State, si:State] {&#x000a;&#x0009;not finite&#x000a;&#x0009;Path.state in phi&#x000a;&#x0009;no Path.next.state &amp; si&#x000a;}&#x000a;&#x000a;// ********** Generalized X **********&#x000a;&#x000a;// issues: internal loops legitimate for EX&#x000a;// how to decide finiteness&#x000a;// can make both optional (specify manually)&#x000a;// -&gt; only issue is with displaying intenral loops  / showing trace&#x000a;// -&gt; still unambiguous with superstructure&#x000a;// -&gt; but pathSigma incorrect? state adjacent depends on where you are in path&#x000a;&#x000a;fun p_ex[phi:State]: State { pathSigma.phi }&#x000a;&#x000a;fun p_ef[phi:State]: State { (*pathSigma).phi }&#x000a;&#x000a;fun p_eg[phi:State]: State { {s:pathState | s.*pathSigma in phi} }&#x000a;&#x000a;fun p_eu[phi:State, si:State]: State {&#x000a;&#x0009;*(phi &lt;: pathSigma).(si &amp; (State - phi))&#x000a;}&#x000a;&#x000a;pred p_finite[phi: State] { finite and P0.state in phi }&#x000a;pred p_infinite[phi: State] { not finite and P0.state in phi }&#x000a;&#x000a;&#x000a;"/>
+
+<source filename="/$alloy4$/models/util/boolean.als" content="module util/boolean&#x000a;&#x000a;/*&#x000a; * Creates a Bool type with two singleton subtypes: True&#x000a; * and False. Provides common boolean operations.&#x000a; *&#x000a; * author: Greg Dennis&#x000a; */&#x000a;&#x000a;abstract sig Bool {}&#x000a;one sig True, False extends Bool {}&#x000a;&#x000a;pred isTrue[b: Bool] { b in True }&#x000a;&#x000a;pred isFalse[b: Bool] { b in False }&#x000a;&#x000a;fun Not[b: Bool] : Bool {&#x000a;  Bool - b&#x000a;}&#x000a;&#x000a;fun And[b1, b2: Bool] : Bool {&#x000a;  subset_[b1 + b2, True]&#x000a;}&#x000a;&#x000a;fun Or[b1, b2: Bool] : Bool {&#x000a;  subset_[True, b1 + b2]&#x000a;}&#x000a;&#x000a;fun Xor[b1, b2: Bool] : Bool {&#x000a;  subset_[Bool, b1 + b2]&#x000a;}&#x000a;&#x000a;fun Nand[b1, b2: Bool] : Bool {&#x000a;  subset_[False, b1 + b2]&#x000a;}&#x000a;&#x000a;fun Nor[b1, b2: Bool] : Bool {&#x000a;  subset_[b1 + b2, False]&#x000a;}&#x000a;&#x000a;fun subset_[s1, s2: set Bool] : Bool {&#x000a;  (s1 in s2) =&gt; True else False&#x000a;}&#x000a;"/>
+
+</alloy>

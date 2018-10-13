@@ -1,0 +1,150 @@
+open util/integer
+open util/ordering[NodeId] as nodes
+
+sig NodeId {}
+
+conc state System {
+    // Atomic counter
+    counter: one NodeId
+    // ZooKeeper children nodes
+    children: set NodeId
+
+    // ZooKeeper update notification.
+    event Update {}
+
+    init {
+        // Initially, neither replica running.
+        counter = first
+        children = none
+    }
+
+    conc state Replica1 {
+        // Sequence number this replica got.
+        num: lone NodeId
+
+        // Start the process.
+        env event Start {}
+        // Stop the process.
+        env event Stop {}
+
+        init {
+            // Initially, not running.
+            num = none
+        }
+
+        default state NotRunning {}
+        state Running {}
+        
+        // Start process, get sequence number, store in ZooKeeper children.
+        trans t1 {
+            from NotRunning
+            on Start
+            goto Running
+            do {
+                num' = counter
+                lte[counter, counter']
+                children' = children + num'
+            }
+            // Notify others.
+            send Update
+        }
+    
+        // Stop process. ZooKeeper node is left behind.
+        trans t2 {
+            from Running
+            on Stop
+            goto NotRunning
+            do { num' = none } // Why is important to reset num?
+            // Notify others.
+            send Update
+        }
+
+        // Respond to update. Attempt to prune stale nodes.
+        trans t3 {
+            from Running
+            on Update
+            // I am not the max = I am not the most recent = I am not backup
+            when { num != children.max }
+            goto Running
+            // The two live nodes are me (primary) and backup
+            do { children' = (num + children.max) }
+            // Notify others.
+            send Update
+        }
+
+        // Do-nothing on update. To simulate the delays in updates.
+       /* trans t4 {
+            from Running
+            on Update
+            when { num != children.max }
+            goto Running
+        }*/
+    }
+    
+        conc state Replica2 {
+        // Sequence number this replica got.
+        num: lone NodeId
+
+        // Start the process.
+        env event Start {}
+        // Stop the process.
+        env event Stop {}
+
+        init {
+            // Initially, not running.
+            num = none
+        }
+
+        default state NotRunning {}
+        state Running {}
+        
+        // Start process, get sequence number, store in ZooKeeper children.
+        trans t1 {
+            from NotRunning
+            on Start
+            goto Running
+            do {
+                num' = counter
+                lt[counter, counter']
+                children' = children + num'
+            }
+            // Notify others.
+            send Update
+        }
+    
+        // Stop process. ZooKeeper node is left behind.
+        trans t2 {
+            from Running
+            on Stop
+            goto NotRunning
+            do { num' = none } // Why is important to reset num?
+            // Notify others.
+            send Update
+        }
+
+        // Respond to update. Attempt to prune stale nodes.
+        trans t3 {
+            from Running
+            on Update
+            // I am not the max = I am not the most recent = I am not backup
+            when { num != children.max }
+            goto Running
+            // The two live nodes are me (primary) and backup
+            do { children' = (num + children.max) }
+            // Notify others.
+            send Update
+        }
+
+        // Do-nothing on update. To simulate the delays in updates.
+       /* trans t4 {
+            from Running
+            on Update
+            when { num != children.max }
+            goto Running
+        }*/
+    }
+}
+
+{escape}
+run significance for 9 Snapshot, 5 EventLabel, 5 NodeId
+{/escape}

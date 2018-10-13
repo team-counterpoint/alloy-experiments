@@ -2,7 +2,7 @@
 
 module path[State]
 
-open ctl[State]
+open util/ctl[State]
 
 // ********** Path definition **********
 
